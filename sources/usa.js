@@ -40,7 +40,7 @@ export default [
     crosswalk: { 
       common: "SPECIES", 
       scientific: "SPECIES",
-      dbh: (x) => numberic(Number(x.DIAMETER) * INCHES),
+      dbh: "DIAMETER",
     },
   },
   {
@@ -72,7 +72,7 @@ export default [
       family: "Family",
       common: "Common",
       health: "Condition",
-      dbh: (x) => Math.round(x.DBH * 2.54 * 10) / 10,
+      dbh: DBH,
       note: "Notes",
     },
   },
@@ -100,8 +100,8 @@ export default [
     email: null,
     contact: null,
     crosswalk: {
-      dbh: (x) => Math.round(x.DBH * 2.54 * 10) / 10,
-      height: (x) => Math.round((x.HEIGHT / 3.280084) * 10) / 10,
+      dbh: "DBH",
+      height: "HEIGHT",
       health: "Condition",
       crown: "CrownWidth",
       family: "Family",
@@ -135,7 +135,7 @@ export default [
     contact: null,
     crosswalk: {
       ref: "tree_id",
-      dbh: (x) => x.tree_dbh * 2.54,
+      dbh: "tree_dbh",
       scientific: "spc_latin",
       common: "spc_common",
       health: "health",
@@ -166,7 +166,7 @@ export default [
     contact: null,
     crosswalk: {
       scientific: "Species",
-      dbh: (x) => numberic(Number(x["Diameter in Inches"]) * INCHES),
+      dbh: "Diameter in Inches",
     },
   },
   {
@@ -228,7 +228,7 @@ export default [
     crosswalk: {
       scientific: "Botanical Name",
       common: "Common Name",
-      dbh: (x) => numberic(Number(x.DBH) * 2.54),
+      dbh: "DBH",
       ref: "Site ID",
     },
   },
@@ -315,7 +315,7 @@ export default [
       scientific: "LATINNAME",
       common: "COMMONNAME",
       variety: "CULTIVAR",
-      dbh: (x) => "DBHINT" * 2.54,
+      dbh: (x) => "DBHINT",
       location: "LOCTYPE",
     },
   },
@@ -385,7 +385,7 @@ export default [
       zip: 'ZIP',
       dbh:' DBH_IN',
       height: 'HEIGHT_FT',
-      health: x => numeric(Math.round(Number(x.CONDITION)/10)),
+      health: x => Math.round(Number(x.CONDITION)/10),
       note: 'NOTE',
       gps_date: 'GPS_Date',
       location: 'LOCATION',
@@ -909,7 +909,7 @@ export default [
     crosswalk: {
       common: "TR_COMMON",
       scientific: "TR_GENUS",
-      // dbh: 'DBH',,
+      dbh: 'DBH',
       health: "CONDITION",
       updated: "INPUT_DATE",
     },
@@ -1399,6 +1399,7 @@ export default [
       genus: "Genus",
       species: "Species",
       variety: "Cultivar",
+      scientific: (x) => `${x.Genus} ${x.Species}`,
       dbh: 'DBH',
       health: "Condition",
       updated: "last_edited_date",
