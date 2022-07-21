@@ -98,7 +98,7 @@ const transform = (context, source, line) => {
     lat: data.geometry.coordinates[1], 
     lng: data.geometry.coordinates[0]
   };
-  const id = ids.createIdForTree(dataForId);
+  const id = createIdForTree(dataForId);
   data.id = id;
   data.properties = { ...mappedProperties,
     id, 
