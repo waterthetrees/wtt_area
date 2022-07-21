@@ -4,7 +4,9 @@ import { inspect } from "util";
 import { once } from "events";
 import makeDir from "make-dir";
 import pLimit from "p-limit";
-import * as ids from "../../../wtt_server/server/routes/treeid/id.js";
+import { createIdForTree } from '@waterthetrees/tree-id';
+// import * as ids from "../../../wtt_server/server/routes/treeid/id.js";
+
 import * as utils from "../core/utils.js";
 import * as constants from "../constants.js";
 
