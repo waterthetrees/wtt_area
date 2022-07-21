@@ -1,11 +1,18 @@
 import path from "path";
 import dotenv from "dotenv";
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
 // Paths -----------------------------------------------------------------------
-const __dirname = path.dirname(import.meta.url.split(":")[1]);
+// Create a cross-platform version of __dirname that works in ESM.
+// https://stackoverflow.com/a/55944697/4200446
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+export const ROOT_URL = String(new URL("..", import.meta.url));
 export const ROOT_DIRECTORY = path.join(__dirname, "..");
+export const SOURCES_URL =
+  // Include the trailing slash on sources/ to treat it as a directory.
+  process.env.SOURCES_URL || String(new URL("sources/", ROOT_URL));
 export const SOURCES_DIRECTORY =
   process.env.SOURCES_DIRECTORY || path.join(ROOT_DIRECTORY, "sources");
 export const DATA_DIRECTORY =
@@ -24,6 +31,10 @@ export const TILES_FILEPATH =
 export const SERVER_INDEX_FILEPATH =
   process.env.SERVER_INDEX_FILEPATH ||
   path.join(ROOT_DIRECTORY, "src/html/index.html");
+// Let the .env file override this command to account for platform differences,
+// since ogr2ogr isn't an npm package and requires separate installation.
+export const OGR2OGR_COMMAND =
+  process.env.OGR2OGR_COMMAND || "ogr2ogr";
 
 // Mapbox ----------------------------------------------------------------------
 export const MAPBOX_API_TOKEN = process.env.MAPBOX_API_TOKEN;

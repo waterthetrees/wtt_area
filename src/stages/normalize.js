@@ -24,9 +24,9 @@ const transform = (context, source, line) => {
       coordinates: source.coordsFunc(data.properties),
     };
   }
-  
+
   if (!data.geometry) {
-    
+
     // console.error(
     //   `Found feature with a null geometry. (source.id: '${source.id}'; feature: '${line}'')`
     // );
@@ -42,7 +42,7 @@ const transform = (context, source, line) => {
   }
 
   if (!data.geometry.coordinates || data.geometry.coordinates.length !== 2) {
-    `Found feature with a invalid geometry. (source.id: '${source.id}'; feature: '${line}'')`;
+    `Found feature with invalid geometry. (source.id: '${source.id}'; feature: '${line}'')`;
     context.invalidGeometry += 1;
     return null;
   }
@@ -51,7 +51,7 @@ const transform = (context, source, line) => {
     data.geometry.coordinates[0] === 0 &&
     data.geometry.coordinates[1] === 0
   ) {
-    `Found feature with a invalid geometry. (source.id: '${source.id}'; feature: '${line}'')`;
+    `Found feature with invalid geometry. (source.id: '${source.id}'; feature: '${line}'')`;
     context.invalidGeometry += 1;
     return null;
   }
@@ -62,7 +62,7 @@ const transform = (context, source, line) => {
     data.geometry.coordinates[1] < constants.MIN_LAT ||
     data.geometry.coordinates[1] > constants.MAX_LAT
   ) {
-    `Found feature with a invalid geometry. (source.id: '${source.id}'; feature: '${line}'')`;
+    `Found feature with invalid geometry. (source.id: '${source.id}'; feature: '${line}'')`;
     context.invalidGeometry += 1;
     return null;
   }
@@ -91,26 +91,26 @@ const transform = (context, source, line) => {
 
   // Set the new properties
   const dataForId = {
-    ...mappedProperties, 
+    ...mappedProperties,
     sourceId: source.id,
     city: source.city,
     state: source.state,
-    lat: data.geometry.coordinates[1], 
+    lat: data.geometry.coordinates[1],
     lng: data.geometry.coordinates[0]
   };
   const id = createIdForTree(dataForId);
   data.id = id;
   data.properties = { ...mappedProperties,
-    id, 
+    id,
     sourceId: source.id,
     city: source.city,
     country: source.country,
     email: source.email,
     download: source.download,
     info: source.info,
-    lat: data.geometry.coordinates[1], 
+    lat: data.geometry.coordinates[1],
     lng: data.geometry.coordinates[0],
-    count: 0, 
+    count: 0,
   };
   return data;
 };
